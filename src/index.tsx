@@ -24,13 +24,44 @@ import ReactDOM from 'react-dom/client'
 //     </div>
 // )
 
-// function component
-function App() {
+// function
+// function App() {
+//     return (
+//         <div>
+//             <h1>Hello React</h1>
+//             <p>lorem ipsum</p>
+//         </div>
+//     )
+// }
+
+const Title = () => {
+    return <h1>Hello React</h1>
+}
+
+const Content = () => {
     return (
-        <div>
-            <h1>Hello React</h1>
-            <p>lorem ipsum</p>
-        </div>
+        <React.Fragment>
+            <p>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Consectetur architecto ab ea cupiditate corrupti nulla aliquam
+                aliquid tempora dignissimos, impedit, aut aspernatur natus optio
+                nostrum nesciunt officiis ipsum? Quibusdam, dicta.
+            </p>
+            <p>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Consectetur architecto ab ea cupiditate corrupti nulla aliquam
+                aliquid tempora dignissimos, impedit, aut aspernatur natus optio
+                nostrum nesciunt officiis ipsum? Quibusdam, dicta.
+            </p>
+        </React.Fragment>
+    )
+}
+const App = () => {
+    return (
+        <>
+            <Title />
+            <Content />
+        </>
     )
 }
 
