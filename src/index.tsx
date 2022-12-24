@@ -1,5 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+// import Title from './Title'
+import { Title } from './Title'
 
 // without jsx
 // const title = React.createElement(
@@ -34,29 +36,16 @@ import ReactDOM from 'react-dom/client'
 //     )
 // }
 
-type TitleProps = {
-    title?: string | number
+type ContentProps = {
+    p1: string
+    p2: string
 }
 
-const Title = (props: TitleProps) => {
-    console.log(props)
-    return <h1>Hello {props.title}</h1>
-}
-const Content = () => {
+const Content = (props: ContentProps) => {
     return (
         <React.Fragment>
-            <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Consectetur architecto ab ea cupiditate corrupti nulla aliquam
-                aliquid tempora dignissimos, impedit, aut aspernatur natus optio
-                nostrum nesciunt officiis ipsum? Quibusdam, dicta.
-            </p>
-            <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Consectetur architecto ab ea cupiditate corrupti nulla aliquam
-                aliquid tempora dignissimos, impedit, aut aspernatur natus optio
-                nostrum nesciunt officiis ipsum? Quibusdam, dicta.
-            </p>
+            <p>{props.p1}</p>
+            <p>{props.p2}</p>
         </React.Fragment>
     )
 }
@@ -67,7 +56,7 @@ const App = () => {
             <Title title="TS" />
             <Title title="JS" />
             <Title title={10} />
-            <Content />
+            <Content p1="hello world bla bla" p2="Hello 22" />
         </>
     )
 }
