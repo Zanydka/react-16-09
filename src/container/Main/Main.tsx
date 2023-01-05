@@ -7,7 +7,7 @@ import ShippingPage from 'pages/ShippingPage/ShippingPage'
 import { Routes, Route } from 'react-router-dom'
 
 type Props = {
-    addProductToCart: (count: number, price: number) => void
+    addProductToCart: (id: number, count: number) => void
 }
 
 const Main = ({ addProductToCart }: Props) => {
