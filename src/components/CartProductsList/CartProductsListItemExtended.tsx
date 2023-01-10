@@ -12,7 +12,7 @@ const CartProductsListItemExtended = ({ productCount, product }: Props) => {
         <Grid item xs={12} sm={4}>
             <Card>
                 <CardContent>
-                    <div>
+                    <div className="cart-img">
                         <img src={product.image} alt="" />
                     </div>
                     <div>{product.title}</div>
