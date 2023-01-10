@@ -4,12 +4,13 @@ import CartProductsList from 'components/CartProductsList/CartProductsList'
 import CartProductsListItemExtended from 'components/CartProductsList/CartProductsListItemExtended'
 
 type Props = {
+    removeProductFromCart: (id: number) => void
     productsInCart: {
         [id: number]: number
     }
 }
 
-const CartPage = ({ productsInCart }: Props) => {
+const CartPage = ({ productsInCart, removeProductFromCart }: Props) => {
     return (
         <div>
             <Typography
@@ -25,6 +26,7 @@ const CartPage = ({ productsInCart }: Props) => {
                 <CartProductsList
                     productsInCart={productsInCart}
                     CartItem={CartProductsListItemExtended}
+                    removeProductFromCart={removeProductFromCart}
                 />
             </Grid>
             <CartTotal productsInCart={productsInCart} />
