@@ -4,12 +4,7 @@ import CartProductsList from 'components/CartProductsList/CartProductsList'
 import CartProductsListItemExtended from 'components/CartProductsList/CartProductsListItemExtended'
 import { useAppSelector } from 'redux/hools'
 
-type Props = {
-    removeProductFromCart: (id: number) => void
-    changeProductQuantity: (id: number, count: number) => void
-}
-
-const CartPage = ({ removeProductFromCart, changeProductQuantity }: Props) => {
+const CartPage = () => {
     const productsInCart = useAppSelector((state) => state.productsInCart)
     return (
         <div>
@@ -26,8 +21,6 @@ const CartPage = ({ removeProductFromCart, changeProductQuantity }: Props) => {
                 <CartProductsList
                     productsInCart={productsInCart}
                     CartItem={CartProductsListItemExtended}
-                    removeProductFromCart={removeProductFromCart}
-                    changeProductQuantity={changeProductQuantity}
                 />
             </Grid>
             <CartTotal productsInCart={productsInCart} />
