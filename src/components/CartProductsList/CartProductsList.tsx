@@ -1,7 +1,5 @@
-import productsArray, {
-    getProductsObject,
-    ProductProps,
-} from 'utils/productsArray'
+import { useAppSelector } from 'redux/hools'
+import { getProductsObject, ProductProps } from 'utils/productsArray'
 import CartProductsListItem from './CartProductsListItem'
 
 type Props = {
@@ -12,25 +10,32 @@ type Props = {
         [id: number]: ProductProps
     }
     CartItem?: any
-    removeProductFromCart?: (id: number) => void
 }
+
+type productsObjectProps = {
+    [id: number]: ProductProps
+}
+
 const CartProductsList = ({
     productsInCart,
-    productsObject = getProductsObject(productsArray),
     CartItem = CartProductsListItem,
-    removeProductFromCart,
 }: Props) => {
-    return (
-        <>
-            {Object.keys(productsInCart).map((productId) => (
-                <CartItem
-                    key={productId}
-                    product={productsObject[parseInt(productId)]}
-                    productCount={productsInCart[parseInt(productId)]}
-                    removeProductFromCart={removeProductFromCart}
-                />
-            ))}
-        </>
-    )
+    const productsArray = useAppSelector((state) => state.products)
+    const productsObject: productsObjectProps = getProductsObject(productsArray)
+    if (productsArray.length === 0) {
+        return null
+    } else {
+        return (
+            <>
+                {Object.keys(productsInCart).map((productId) => (
+                    <CartItem
+                        key={productId}
+                        product={productsObject[parseInt(productId)]}
+                        productCount={productsInCart[parseInt(productId)]}
+                    />
+                ))}
+            </>
+        )
+    }
 }
 export default CartProductsList

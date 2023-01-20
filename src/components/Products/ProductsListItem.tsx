@@ -1,12 +1,13 @@
-import {
-    Button,
-    Card,
-    CardActions,
-    CardContent,
-    TextField,
-} from '@mui/material'
+import { Button, Card, CardActions, CardContent } from '@mui/material'
+import Quantity from 'components/Quantity/Quantity'
 import { useState } from 'react'
 import './ProductsListItem.scss'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import { useAppDispatch, useAppSelector } from 'redux/hools'
+import { likeSlice } from 'redux/likeReducer'
+import { addProductToCart } from 'redux/cartReducer'
+import { Link } from 'react-router-dom'
 
 type Props = {
     id: number
@@ -16,7 +17,6 @@ type Props = {
     capacity: string
     price: number
     image: string
-    addProductToCart: (id: number, count: number) => void
 }
 
 const ProductsListItem = ({
@@ -27,7 +27,6 @@ const ProductsListItem = ({
     capacity,
     price,
     image,
-    addProductToCart,
 }: Props) => {
     const [count, setCount] = useState<number>(1)
     // const [color, setColor] = useState<string>('green')
@@ -38,6 +37,10 @@ const ProductsListItem = ({
     const onDecrementClick = () => {
         setCount((prevState: number) => prevState - 1)
     }
+
+    const isLiked = useAppSelector((state) => state.likeProducts[id])
+    const dispatch = useAppDispatch()
+
     // const changeColor = () => {
     //     // setColor((prevState: string) =>
     //     //     prevState === 'green' ? 'red' : 'green'
@@ -52,12 +55,22 @@ const ProductsListItem = ({
     // }
 
     return (
-        <Card className="product" variant="outlined">
+        <Card
+            className="product"
+            variant="outlined"
+            onClick={() => dispatch(toggleLikeState(id))}
+        >
             <CardContent>
+                <Button variant="outlined">
+                    {isLiked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                </Button>
                 <div className="product-img">
                     <img src={image} alt="" />
                 </div>
-                <div className="product-title">{title}</div>
+                <div className="product-title">
+                    {' '}
+                    <Link to={`/products/${id}`}>{title}</Link>
+                </div>
                 <div className="product-decs">{desc}</div>
                 <div className="product-features">
                     <span>Type:</span> {type}
@@ -70,32 +83,23 @@ const ProductsListItem = ({
                 </div>
                 {/* <p className={`${color}`}>Color: {color}</p>
                 <button onClick={changeColor}>change color</button> */}
-                <div className="product-quantity">
-                    <Button
-                        variant="outlined"
-                        // 1-sposob
-                        // onClick={() => setCount(count - 1)}
-                        onClick={onDecrementClick}
-                        disabled={count <= 1}
-                    >
-                        -
-                    </Button>
-                    <TextField value={count} size="small" />
-                    <Button
-                        variant="outlined"
-                        // 1-sposob
-                        // onClick={() => setCount(count + 1)}
-                        onClick={onIncrementClick}
-                        disabled={count >= 10}
-                    >
-                        +
-                    </Button>
-                </div>
+                <Quantity
+                    count={count}
+                    onDecrementClick={onDecrementClick}
+                    onIncrementClick={onIncrementClick}
+                />
             </CardContent>
             <CardActions className="btns-wrap">
                 <Button
                     variant="outlined"
-                    onClick={() => addProductToCart(id, count)}
+                    onClick={() =>
+                        dispatch(
+                            addProductToCart({
+                                id,
+                                count,
+                            })
+                        )
+                    }
                 >
                     Add to cart
                 </Button>
@@ -103,5 +107,5 @@ const ProductsListItem = ({
         </Card>
     )
 }
-
+export const { toggleLikeState } = likeSlice.actions
 export default ProductsListItem
