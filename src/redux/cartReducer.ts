@@ -7,8 +7,7 @@ type ProductsInCart = {
 
 
 const initialState:ProductsInCart = {
-    1:3,
-    2:3
+    1:1
 }
 
 export const cartSlice = createSlice({
